@@ -1,0 +1,88 @@
+.sidebar {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #f0f4f9 70%, #e6eaf1 100%);
+    padding: 20px 0 20px 16px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+.sidebar img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.sidebar .menu {
+    display: block;
+    margin-left: 8px;
+    margin-bottom: 18px;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+.sidebar .menu:hover {
+    transform: scale(1.1);
+}
+
+.sidebar .new-chat {
+    margin: 12px 0 18px 0;
+    padding: 12px 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(90deg, #e6eaf1 80%, #dbe2ec 100%);
+    border-radius: 40px;
+    color: #4a4a4a;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.sidebar .new-chat:hover {
+    background: #dbe2ec;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.sidebar .recent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar .recent-title {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #7a7a7a;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.sidebar .recent-entry {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px 10px 10px;
+    border-radius: 40px;
+    color: #282828;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-size: 15px;
+    font-weight: 400;
+}
+.sidebar .recent-entry:hover {
+    background-color: #e2e6eb;
+    color: #1a73e8;
+}
+
+.sidebar .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+    border-top: 1px solid #e0e4ea;
+    padding-top: 18px;
+}
