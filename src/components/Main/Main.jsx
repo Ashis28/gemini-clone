@@ -1,0 +1,53 @@
+import React from 'react'
+import './Main.css'
+import { assets } from '../../assets/assets'
+
+export const Main = () => {
+  return (
+    <div className='main'>
+        <div className="nav">
+            <p>Gemini</p>
+            <img src={assets.user_icon} alt="" />
+        </div>
+        <div className="main-container">
+            <div className="greet">
+                <p><span>Hello Developers</span></p>
+                <p>How can i help you today?</p>
+            </div>
+            <div className="cards">
+                <div className="card">
+                    <p>Suggest beautiful place for an upcoming road trip</p>
+                    <img src={assets.compass_icon} alt="" />
+                </div>
+                <div className="card">
+                    <p>How to learn react native guide for beginners</p>
+                    <img src={assets.bulb_icon} alt="" />
+                </div>
+                <div className="card">
+                    <p>How does the flex and box tag work inside css</p>
+                    <img src={assets.message_icon} alt="" />
+                </div>
+                <div className="card">
+                    <p>Difference between state and hooks in react ?</p>
+                    <img src={assets.code_icon} alt="" />
+                </div>
+            </div>
+
+            <div className="main-bottom">
+                <div className="search-box">
+                    <input type="text" placeholder='Enter a prompt here' />
+                    <div>
+                        <img src={assets.gallery_icon} alt="" />
+                        <img src={assets.mic_icon} alt="" />
+                        <img src={assets.send_icon} alt="" />
+                    </div>
+                </div>
+
+                <p className="button-info">
+                       ai may give inaccurate info
+                </p>
+            </div>
+        </div>
+    </div>
+  )
+}
