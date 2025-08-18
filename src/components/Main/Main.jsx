@@ -6,6 +6,8 @@ import { Context } from '../../context/context'
 export const Main = () => {
 
     const {onSent,recentPrompt,showResult,loading,resultData,setInput,input} = useContext(Context);
+
+    
   return (
     <div className='main'>
         <div className="nav">
@@ -39,7 +41,7 @@ export const Main = () => {
                     </div>
                 </div>
 
-            </> : <div className='result'>{resultData} whop
+            </> : <div className='result'>Gemini Querry
 
                     <div className="result-title">
                         <img src={assets.user_icon} alt=''/>
@@ -73,7 +75,7 @@ export const Main = () => {
                     <div>
                         <img src={assets.gallery_icon} alt="" />
                         <img src={assets.mic_icon} alt="" />
-                        <img src={assets.send_icon} alt="" onClick={()=>onSent()}/>
+                        {input?<img src={assets.send_icon} alt="" onClick={()=>onSent()}/>:null}
                     </div>
                 </div>
 

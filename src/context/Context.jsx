@@ -10,21 +10,55 @@ export const ContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
 
-  const onSent = async (prompt) => {
+  const newChat = ()=>{
+    setLoading(false);
+    setShowResult(false);
+  }
 
+  const delayPara = (index, nextWord) => {
+    setTimeout(() => {
+      setResultData(prev => prev + nextWord)
+    }, 75 * index)
+  }
+
+  const onSent = async (prompt) => {
     setResultData("");
     setLoading(true);
-    setRecentPrompt(input);
     setShowResult(true);
 
+    let usedPrompt = input;
+    if (prompt !== undefined) {
+      usedPrompt = prompt;
+      setRecentPrompt(prompt);
+    } else {
+      setPrevPrompt(prev => [...prev, input]);
+      setRecentPrompt(input);
+    }
 
-    const response = await runChatExample(input);
-    setResultData(response);
+    const response = await runChatExample(usedPrompt);
+
+    let responseArray = response.split("**");
+    let newResponse = "";
+
+    for (let i = 0; i < responseArray.length; i++) {
+      if (i == 0 || i % 2 != 1) {
+        newResponse += responseArray[i];
+      }
+      else {
+        newResponse += "<b>" + responseArray[i] + "</b>"
+      }
+    }
+
+    let newResponse2 = newResponse.split("*").join("<br/>");
+
+    let newResponseArray = newResponse2.split(" ");
+    for (let i = 0; i < newResponseArray.length; i++) {
+      delayPara(i, newResponseArray[i] + " ")
+    }
     setLoading(false);
     setInput("");
   }
 
- // onSent("What is react js")
   const contextValue = {
     prevPrompt,
     setPrevPrompt,
@@ -36,6 +70,7 @@ export const ContextProvider = (props) => {
     resultData,
     input,
     setInput,
+    newChat,
   };
 
   return (
