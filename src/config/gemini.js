@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
+let text = "Abraca dabra , there are so many content but at this movement lets return on this muchremember more knowledge is harmful"
 // Set this to true to pause API calls for 30 minutes (or as needed)
 const PAUSE_API = true;
 
@@ -19,7 +20,7 @@ export async function runChatExample(prompt) {
   // Check if API calls are paused
   if (PAUSE_API) {
     console.warn("Gemini API calls are currently paused to save quota.");
-    return;
+    return text;
   }
   // Optionally, check for time-based pause
 //   if (PAUSE_UNTIL && Date.now() < new Date(PAUSE_UNTIL).getTime()) {
@@ -35,6 +36,8 @@ export async function runChatExample(prompt) {
     });
     // Log the response to the console as requested
     console.log(response.text || response.candidates?.[0]?.content || "");
+    return response.text();
+    
   } catch (error) {
     console.error("Error communicating with Gemini API:", error);
   }

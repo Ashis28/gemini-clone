@@ -5,7 +5,7 @@ export const Context = createContext();
 export const ContextProvider = (props) => {
   const [input, setInput] = useState("");
   const [recentPrompt, setRecentPrompt] = useState("");
-  const [prevPrompt, setPrevPrompt] = useState([]); // Corrected 'Promot' to 'Prompt'
+  const [prevPrompt, setPrevPrompt] = useState([]); 
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
@@ -14,10 +14,14 @@ export const ContextProvider = (props) => {
 
     setResultData("");
     setLoading(true);
+    setRecentPrompt(input);
     setShowResult(true);
-    
 
-    await runChatExample(input);
+
+    const response = await runChatExample(input);
+    setResultData(response);
+    setLoading(false);
+    setInput("");
   }
 
  // onSent("What is react js")
