@@ -1,44 +1,41 @@
-const GEMINI_API_KEY = "AIzaSyA29AHIu4yEZ8m_stknMngvkokYfQppNPQ"
-
 import { GoogleGenAI } from "@google/genai";
 
-// The client gets the API key from the environment variable `GEMINI_API_KEY`.
-// const ai = new GoogleGenAI({});
+// Set this to true to pause API calls for 30 minutes (or as needed)
+const PAUSE_API = true;
 
-// async function main() {
-//   const response = await ai.models.generateContent({
-//     model: "gemini-2.5-flash",
-//     contents: "Explain how AI works in a few words",
-//   });
-//   console.log(response.text);
-// }
+// Optionally, you can set a timestamp to automatically resume after 30 minutes
+// For a more robust solution, persist this in localStorage or backend
+const PAUSE_UNTIL =  new Date(Date.now() + 30 * 60 * 1000)
 
-main();
+const GEMINI_API_KEY = "AIzaSyA29AHIu4yEZ8m_stknMngvkokYfQppNPQ";
 
-import { GoogleGenAI } from "@google/genai";
+// Initialize the GoogleGenAI client with the API key
+const ai = new GoogleGenAI({
+  apiKey: GEMINI_API_KEY,
+});
 
-const ai = new GoogleGenAI({});
-
-async function main(promot) {
-  const chat = ai.chats.create({
-    model: "gemini-2.5-flash",
-    history: [
-      {
-        role: "user",
-        parts: [{ text: "Hello" }],
-      },
-      {
-        role: "model",
-        parts: [{ text: "Great to meet you. What would you like to know?" }],
-      },
-    ],
-  });
-
-  const response1 = await chat.sendMessage({
-    message: promot,
-  });
-  console.log("Chat response 1:", response1.text);
-
+// Function to send a prompt to Gemini and log the response to the console
+export async function runChatExample(prompt) {
+  // Check if API calls are paused
+  if (PAUSE_API) {
+    console.warn("Gemini API calls are currently paused to save quota.");
+    return;
+  }
+  // Optionally, check for time-based pause
+//   if (PAUSE_UNTIL && Date.now() < new Date(PAUSE_UNTIL).getTime()) {
+//     console.warn(
+//       `Gemini API calls are paused until ${new Date(PAUSE_UNTIL).toLocaleString()}`
+//     );
+//     return;
+//   }
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+    });
+    // Log the response to the console as requested
+    console.log(response.text || response.candidates?.[0]?.content || "");
+  } catch (error) {
+    console.error("Error communicating with Gemini API:", error);
+  }
 }
-
-export default main;

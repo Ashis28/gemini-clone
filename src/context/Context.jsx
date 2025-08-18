@@ -1,31 +1,40 @@
 import { createContext, useState } from "react";
-import main from "../config/gemini";
-
+import { runChatExample } from "../config/gemini";
 export const Context = createContext();
 
-const contextProvider = (props) => {
+export const ContextProvider = (props) => {
+  const [input, setInput] = useState("");
+  const [recentPrompt, setRecentPrompt] = useState("");
+  const [prevPrompt, setPrevPrompt] = useState([]); // Corrected 'Promot' to 'Prompt'
+  const [showResult, setShowResult] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [resultData, setResultData] = useState("");
 
-    const [input,setInput] = useState("");
-    const [recentPrompt,setRecentPrompt] = useState("");
-    const [prevPrompt,setPrevPromot] = useState([]);
-    const [showResult,setShowResult] = useState(false);
-    const [loading,setLoading] = useState(false);
-    const [resultData,setResultData] = useState("");
+  const onSent = async (prompt) => {
 
-    const onSent = async(prompt) => {
-        await main(prompt)
-    }
-    onSent("What is react js?")
+    setResultData("");
+    setLoading(true);
+    setShowResult(true);
+    
 
-    const contextValue = {
+    await runChatExample(input);
+  }
 
-    }
+ // onSent("What is react js")
+  const contextValue = {
+    prevPrompt,
+    setPrevPrompt,
+    onSent,
+    recentPrompt,
+    setRecentPrompt,
+    showResult,
+    loading,
+    resultData,
+    input,
+    setInput,
+  };
 
-    return(
-        <Context.Provider value={contextValue}>
-            {props.childern}
-        </Context.Provider>
-    )
-}
-
-export default contextProvider
+  return (
+    <Context.Provider value={contextValue}>{props.children}</Context.Provider>
+  );
+};
